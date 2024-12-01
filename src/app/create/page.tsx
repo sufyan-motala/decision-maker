@@ -57,6 +57,7 @@ export default function CreateDecision() {
       options: options.filter((o) => o.trim() !== ""),
       dueDate: finalDeadline?.toISOString() || new Date().toISOString(),
       participants: [],
+      discussion: [],
     });
 
     // Reset form

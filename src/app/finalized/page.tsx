@@ -11,7 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { getDecisions, type Decision } from "@/lib/storage";
+import { getDecisions } from "@/lib/storage";
 
 export default function FinalizedDecisions() {
   const decisions = getDecisions().filter((d) => d.status === "finalized");
