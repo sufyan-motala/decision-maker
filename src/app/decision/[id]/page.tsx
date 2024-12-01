@@ -35,8 +35,10 @@ import {
   addDiscussionMessage,
   type Decision,
 } from "@/lib/storage";
+import { useParams } from "next/navigation";
 
-export default function DecisionDetail({ params }: { params: { id: string } }) {
+export default function DecisionDetail() {
+  const params = useParams();
   const [decision, setDecision] = useState<Decision | null>(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [comment, setComment] = useState("");
@@ -45,7 +47,7 @@ export default function DecisionDetail({ params }: { params: { id: string } }) {
   const { toast } = useToast();
 
   useEffect(() => {
-    const foundDecision = getDecision(params.id);
+    const foundDecision = getDecision(params.id as string);
     setDecision(foundDecision);
   }, [params.id]);
 
@@ -58,7 +60,7 @@ export default function DecisionDetail({ params }: { params: { id: string } }) {
     if (!selectedOption) return;
 
     const updatedDecision = addParticipantVote(
-      params.id,
+      params.id as string,
       selectedOption,
       comment
     );
@@ -97,7 +99,7 @@ export default function DecisionDetail({ params }: { params: { id: string } }) {
     e.preventDefault();
     if (!discussionComment.trim()) return;
 
-    const updatedDecision = addDiscussionMessage(params.id, {
+    const updatedDecision = addDiscussionMessage(params.id as string, {
       author: "Current User", // In production, use actual user name
       message: discussionComment,
     });

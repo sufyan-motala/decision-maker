@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -12,9 +13,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { getDecisions } from "@/lib/storage";
+import type { Decision } from "@/lib/storage";
 
 export default function FinalizedDecisions() {
-  const decisions = getDecisions().filter((d) => d.status === "finalized");
+  const [decisions, setDecisions] = useState<Decision[]>([]);
+
+  useEffect(() => {
+    const allDecisions = getDecisions();
+    setDecisions(allDecisions.filter((d) => d.status === "finalized"));
+  }, []);
 
   return (
     <div className="container mx-auto p-4 max-w-md">
